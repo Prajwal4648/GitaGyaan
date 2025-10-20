@@ -19,11 +19,15 @@ import time
 # CONFIGURATION
 # ============================================================================
 
-GEMINI_API_KEY = "AIzaSyB23pN4vZIY79K9qmHD_PDDAZq3hDuQxZY"
+# Get API key from Streamlit secrets or fallback to environment variable
+GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "AIzaSyB23pN4vZIY79K9qmHD_PDDAZq3hDuQxZY")
 MODEL_NAME = "gemini-2.0-flash"
-SLOKAS_JSON_PATH = "gita_slokas.json"
-FAISS_INDEX_PATH = "faiss_index.bin"
-SLOKA_MAPPING_PATH = "sloka_mapping.pkl"
+
+# Use absolute paths relative to the script location
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SLOKAS_JSON_PATH = os.path.join(SCRIPT_DIR, "gita_slokas.json")
+FAISS_INDEX_PATH = os.path.join(SCRIPT_DIR, "faiss_index.bin")
+SLOKA_MAPPING_PATH = os.path.join(SCRIPT_DIR, "sloka_mapping.pkl")
 TOP_K = 3
 
 # ============================================================================
@@ -44,8 +48,15 @@ def initialize_gemini():
 
 def load_slokas(json_path: str) -> List[Dict]:
     try:
+        if not os.path.exists(json_path):
+            print(f"Error: File not found at {json_path}")
+            print(f"Current directory: {os.getcwd()}")
+            print(f"Script directory: {SCRIPT_DIR}")
+            return []
+        
         with open(json_path, 'r', encoding='utf-8') as f:
             slokas = json.load(f)
+        print(f"Successfully loaded {len(slokas)} slokas from {json_path}")
         return slokas
     except Exception as e:
         print(f"Error loading slokas: {e}")
