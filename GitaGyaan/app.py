@@ -587,7 +587,7 @@ def main():
 
     with st.form(key='question_form', clear_on_submit=True):
         question = st.text_area(
-            "",
+            "Ask a question",
             placeholder="Ask your question here... (e.g., Who is Drona? What happened at Kurukshetra?)",
             height=100,
             label_visibility="collapsed",
