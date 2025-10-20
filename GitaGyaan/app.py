@@ -19,8 +19,12 @@ import time
 # CONFIGURATION
 # ============================================================================
 
-# Get API key from Streamlit secrets or fallback to environment variable
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "AIzaSyB23pN4vZIY79K9qmHD_PDDAZq3hDuQxZY")
+# Get API key from Streamlit secrets or use default
+try:
+    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+except:
+    GEMINI_API_KEY = "AIzaSyB23pN4vZIY79K9qmHD_PDDAZq3hDuQxZY"
+
 MODEL_NAME = "gemini-2.0-flash"
 
 # Use absolute paths relative to the script location
