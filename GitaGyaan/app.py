@@ -23,7 +23,7 @@ import time
 try:
     GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 except:
-    GEMINI_API_KEY = "AIzaSyB23pN4vZIY79K9qmHD_PDDAZq3hDuQxZY"
+    GEMINI_API_KEY = "AIzaSyBnxroL-fIW53EHoi6pbKYIcquzzmBWT1c"
 
 MODEL_NAME = "gemini-2.0-flash"
 
